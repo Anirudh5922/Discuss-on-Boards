@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block title %}Start a New Topic {% endblock %}
+
+
+{% block javascript %}
+<script>
+var simplemde = new SimpleMDE();
+</script>
+{% endblock %}
+
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}"> Boards</a></li>
+<li class="breadcrumb-item"><a href="{% url 'board_topics' board.name %}"> {{ board.name}}</a></li>
+<li class="breadcrumb-item active">New Topic</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" nonvalidate>
+  {% csrf_token %}
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-success">Post</button>
+  </form>
+{% endblock %}

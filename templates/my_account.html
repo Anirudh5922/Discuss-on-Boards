@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}My account{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active"><h3>My account</h3></li>
+{% endblock %}
+
+{% block content %}
+<div class="card border-dark mb-8">
+<div class="card-body p-3">
+ <div class="row">
+ <div class="col-lg-6 col-md-8 col-sm-10">
+  <form method="post" nonvalidate>
+  {% csrf_token %}
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-success">Save changes</button>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div>
+{% endblock %} 

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load gravatar %}
+{% load humanize %}
+{% load static %}
+{%block title %}Personal Detatils{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active"><h3>Personal Details</h3></li>
+{% endblock %}
+
+{% block content %}
+<div class="card mb-10 border-dark">
+<div class="card-header text-white bg-dark py-4 px-4"><strong><h2>{{ user1.username}}</h2></strong></div>
+<div class="card-body p-3">
+<div class="row">
+<div class="col-2">
+{% if user == user1 %}
+<a href="https://en.gravatar.com/">
+<img src="{{user1|gravatar}}" alt="{{user1.username}}" class="w-100 rounded">
+<strong>Change Profile<br>Picture Gravatar</strong>
+</a>
+{% else %}
+<img src="{{user1|gravatar}}" alt="{{user1.username}}" class="w-100 rounded">
+{% endif %}
+</div>
+<div class="col-10">
+<div class="row mb-3">
+<div class="col-6">
+<ul>
+<li><strong class="text-muted">First Name:</strong>
+{{user1.first_name}}</li>
+<li><strong class="text-muted">	Last Name:</strong>
+{{user1.last_name}}</li>
+<li><strong class="text-muted">Email Address:</strong>{{user1.email}}
+</li>
+<li><strong class="text-muted">Posts:</strong>{{user1.posts.count}}
+</li>
+<li><strong class="text-muted">Last Login:</strong>{{user1.last_login|naturaltime}}
+</li>
+<li><strong class="text-muted">Joined:</strong>{{user1.date_joined|naturaltime}}
+</li>
+</ul>
+</div>
+</div>
+  {% if user.is_authenticated and user1 == user %}  
+ <div class="mt-3">
+ <a href="{% url 'my_account' %}" class="btn btn-dark btn-sm" role="button">Edit Details</a>
+  </div>
+  {% endif %}
+ </div>
+ </div> 
+ </div>
+ </div>
+ 
+ <div class="card mb-10 border-dark">
+ <div class="card-header text-white bg-dark py-2 px-4"><strong><h3>Posts</h3></strong></div> 
+<div class="card-body p-3">
+{% if user1.posts.count != 0 %}
+ <table class="table table-striped mb-4">
+   <thead class="thead-dark">
+    <tr>
+    <th>Topic</th>
+    <th>Message</th>
+    <th>Created at</th>
+    <th>Link</th
+    </tr>
+   </thead>
+<tbody>
+ {% for post in posts %}
+<tr>   
+<td> {{post.topic.subject}}</td>
+<td> {{ post }}</td>
+<td>{{post.created_at|naturaltime}}</td>
+<td> <a href="{% url 'topic_posts' post.topic.board.name post.topic.pk %}?page={{post.page}}#{{post.pk}}">
+   Visit Post </a></td>
+</tr>      
+ {% endfor %}
+   {% include 'includes/pagination.html' %}  
+ </tbody>
+</table>
+ </div>
+ </div>
+ <br>
+{% else %}
+No Posts yet
+{% endif %}
+{% endblock %}
+

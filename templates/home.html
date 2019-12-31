@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+  
+  {% block breadcrumb %}
+  <li class="breadcrumb-item active"> Boards </li>
+  {% endblock %}
+   
+   {% block content %}    
+    <div class="card border-dark mb-3">
+    <div class="card-body">
+    <table class="table table-striped mb-10">
+    <thead class="thead-dark">
+      <tr>
+      <th>Board</th>
+      <th>Posts</th>
+      <th>Topics</th>
+      <th>Last Post</th>
+      </tr>
+    </thead>
+    <tbody>  
+    {% for board in boards %}
+       <tr>
+        <td>
+        <a href="{%url 'board_topics' board.name %}">{{board.name}}</a>
+        <small class="text-muted d-block">{{board.description}}</small>
+        </td>
+       <td class="align-middle">
+       {{ board.get_posts_count}}
+       </td>
+       <td class="align-middle">
+       {{ board.topics.count}}
+       </td>
+       <td class="align-middle">
+       {% with post=board.get_last_post %}
+       {% if post %}
+       <small>
+       <a href="{%url 'topic_posts' board.name post.topic.pk %}">
+       By {{ post.created_by.username }} at {{ post.created_at }}
+        </a>
+       </small>
+       {% else %}
+       <small class="text-muted">
+        <em>No posts yet.</em>
+        </small>
+        </small>
+        {% endif %}
+         {% endwith %}
+       </td>
+      </tr> 
+      {% endfor %}
+  </tbody>
+ </table>  
+ {% include 'includes/pagination.html' %}  
+ </div>
+ </div>
+ 
+ {% endblock %}
+
+      
+  
