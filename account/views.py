@@ -10,6 +10,10 @@ from django.views.generic import UpdateView,ListView
 from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from boards.models import Board,Topic,Post
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
 
 def signup(request):
      if request.method=='POST':
@@ -55,5 +59,19 @@ class my_details(ListView):
           kwargs['user1']=user1
           return super().get_context_data(**kwargs)
      
-
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {
+        'form': form
+    })
                    

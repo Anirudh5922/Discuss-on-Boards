@@ -23,8 +23,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
            <div class="dropdown-menu dropdon-menu-right" aria-labelledby="usermenu">
-           <a class="dropdown-item" href="{% url 'my_details' user.username %}">My account</a>
-           <a class="dropdown-item" href="#">Change password</a>
+           <a class="dropdown-item" href="{% url 'my_details' user.username %}">My Account</a>
+           <a class="dropdown-item" href="{%url 'change_password'%}">Change password</a>
            <div class="dropdown-divider"></div>
            <a class="dropdown-item" href="{%url 'logout'%}">Log out</a>
           </div>  

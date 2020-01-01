@@ -40,4 +40,5 @@ urlpatterns = [
     path('boards/<str:board_name>/topics/<int:topic_pk>/posts/<int:post_pk>/edit/',views.PostUpdateView.as_view(), name='edit_post') , 
     path('settings/account/',account_views.UserUpdateView.as_view(),name='my_account'),    
     path('account/<str:user_name>/'  ,account_views.my_details.as_view(),name='my_details'),
+    path('password/', account_views.change_password, name='change_password')
 ]
