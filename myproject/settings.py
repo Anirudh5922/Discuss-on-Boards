@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False, cast=bool)
 
-ALLOWED_HOSTS = ['.localhost', '127.0.0.1'. ]
+ALLOWED_HOSTS = ['localhost','127.0.01']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize', 
     'simplemde',
+    
     
     'account',
     'boards',
@@ -87,13 +88,13 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-        ) 
-
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'BoardsDB',
+        'USER': 'anirudh',
+        'PASSWORD': 'mnit@123',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
